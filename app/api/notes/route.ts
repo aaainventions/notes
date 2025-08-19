@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "../../../lib/db";
-import Note from "../../../models/Notes"; // cleaner import path
+import { connectDB } from "@/lib/db";
+import Note from "@/models/Notes"; // cleaner import path
 
 export async function GET() {
   try {

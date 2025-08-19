@@ -1,27 +1,12 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
 if (!MONGODB_URI) throw new Error("Please define MONGODB_URI in .env.local");
 
-interface MongooseCache {
-  conn: Mongoose | null;
-  promise: Promise<Mongoose> | null;
-}
+let cached = (global as any).mongoose || { conn: null, promise: null };
 
-declare global {
-  // Global type declaration so TypeScript knows this property exists
-  // (only in Node.js, not in the browser)
-  // eslint-disable-next-line no-var
-  var mongooseCache: MongooseCache | undefined;
-}
-
-const cached: MongooseCache = global.mongooseCache || {
-  conn: null,
-  promise: null,
-};
-
-export async function connectDB(): Promise<Mongoose> {
+export async function connectDB() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
@@ -29,6 +14,5 @@ export async function connectDB(): Promise<Mongoose> {
   }
 
   cached.conn = await cached.promise;
-  global.mongooseCache = cached; // keep cache for hot reloads
   return cached.conn;
 }
