@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '../../components/ui/input';
+import { Button } from '../../components/ui/button';
+import { Card, CardContent } from '../../components/ui/card';
 import { Trash2, Pencil } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
