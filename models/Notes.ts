@@ -1,18 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, model, models } from "mongoose";
 
-const NoteSchema = new mongoose.Schema({
-  content: {
-    type: String,
-    required: true,
+const NoteSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    content: { type: String },
+    done: { type: Boolean, default: false },
+    date: { type: String },
   },
-  date: {
-    type: String,
-    default: () => new Date().toLocaleDateString(),
-  },
-  done: {
-    type: Boolean,
-    default: false,
-  },
-});
+  { timestamps: true }
+);
 
-export default mongoose.models.Note || mongoose.model('Note', NoteSchema);
+const Note = models.Note || model("Note", NoteSchema);
+
+export default Note;
